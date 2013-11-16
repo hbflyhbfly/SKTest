@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F233E13A182FDDDD00F32842 /* Hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = F233E139182FDDDD00F32842 /* Hit.wav */; };
+		F27733D6183294D1009BEDA8 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F27733D5183294D1009BEDA8 /* GameOverScene.m */; };
+		F27733D91832954B009BEDA8 /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = F27733D81832954B009BEDA8 /* Ship.m */; };
+		F27733DC1833AC7C009BEDA8 /* StartScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F27733DB1833AC7C009BEDA8 /* StartScene.m */; };
+		F2D0646E1822D493002823E0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D0646D1822D493002823E0 /* CoreMotion.framework */; };
+		F2D0647018296131002823E0 /* ShipBullet.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2D0646F18296131002823E0 /* ShipBullet.wav */; };
 		F2E4EFEE18092420009C20A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E4EFED18092420009C20A6 /* Foundation.framework */; };
 		F2E4EFF018092420009C20A6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E4EFEF18092420009C20A6 /* CoreGraphics.framework */; };
 		F2E4EFF218092420009C20A6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E4EFF118092420009C20A6 /* UIKit.framework */; };
@@ -24,6 +30,7 @@
 		F2E4F01618092420009C20A6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E4EFF118092420009C20A6 /* UIKit.framework */; };
 		F2E4F01E18092420009C20A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2E4F01C18092420009C20A6 /* InfoPlist.strings */; };
 		F2E4F02018092420009C20A6 /* SKTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E4F01F18092420009C20A6 /* SKTestTests.m */; };
+		F2FD8D26180C1AA30073E59A /* SpaceShip.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FD8D25180C1AA30073E59A /* SpaceShip.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +44,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F233E139182FDDDD00F32842 /* Hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Hit.wav; sourceTree = "<group>"; };
+		F27733D4183294D1009BEDA8 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		F27733D5183294D1009BEDA8 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		F27733D71832954B009BEDA8 /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
+		F27733D81832954B009BEDA8 /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
+		F27733DA1833AC7C009BEDA8 /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartScene.h; sourceTree = "<group>"; };
+		F27733DB1833AC7C009BEDA8 /* StartScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartScene.m; sourceTree = "<group>"; };
+		F2D0646D1822D493002823E0 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		F2D0646F18296131002823E0 /* ShipBullet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = ShipBullet.wav; path = ../../../Downloads/Sound_LASER_21/LASER/ShipBullet.wav; sourceTree = "<group>"; };
 		F2E4EFEA18092420009C20A6 /* SKTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E4EFED18092420009C20A6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F2E4EFEF18092420009C20A6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -60,6 +76,8 @@
 		F2E4F01B18092420009C20A6 /* SKTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SKTestTests-Info.plist"; sourceTree = "<group>"; };
 		F2E4F01D18092420009C20A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F2E4F01F18092420009C20A6 /* SKTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTestTests.m; sourceTree = "<group>"; };
+		F2FD8D24180C1AA30073E59A /* SpaceShip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpaceShip.h; sourceTree = "<group>"; };
+		F2FD8D25180C1AA30073E59A /* SpaceShip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpaceShip.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2D0646E1822D493002823E0 /* CoreMotion.framework in Frameworks */,
 				F2E4EFF018092420009C20A6 /* CoreGraphics.framework in Frameworks */,
 				F2E4EFF218092420009C20A6 /* UIKit.framework in Frameworks */,
 				F2E4EFF418092420009C20A6 /* SpriteKit.framework in Frameworks */,
@@ -109,6 +128,7 @@
 		F2E4EFEC18092420009C20A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F2D0646D1822D493002823E0 /* CoreMotion.framework */,
 				F2E4EFED18092420009C20A6 /* Foundation.framework */,
 				F2E4EFEF18092420009C20A6 /* CoreGraphics.framework */,
 				F2E4EFF118092420009C20A6 /* UIKit.framework */,
@@ -121,6 +141,8 @@
 		F2E4EFF518092420009C20A6 /* SKTest */ = {
 			isa = PBXGroup;
 			children = (
+				F233E139182FDDDD00F32842 /* Hit.wav */,
+				F2D0646F18296131002823E0 /* ShipBullet.wav */,
 				F2E4EFFE18092420009C20A6 /* AppDelegate.h */,
 				F2E4EFFF18092420009C20A6 /* AppDelegate.m */,
 				F2E4F00118092420009C20A6 /* Main.storyboard */,
@@ -131,6 +153,14 @@
 				F2E4F00A18092420009C20A6 /* Spaceship.png */,
 				F2E4F00C18092420009C20A6 /* Images.xcassets */,
 				F2E4EFF618092420009C20A6 /* Supporting Files */,
+				F2FD8D24180C1AA30073E59A /* SpaceShip.h */,
+				F2FD8D25180C1AA30073E59A /* SpaceShip.m */,
+				F27733D4183294D1009BEDA8 /* GameOverScene.h */,
+				F27733D5183294D1009BEDA8 /* GameOverScene.m */,
+				F27733D71832954B009BEDA8 /* Ship.h */,
+				F27733D81832954B009BEDA8 /* Ship.m */,
+				F27733DA1833AC7C009BEDA8 /* StartScene.h */,
+				F27733DB1833AC7C009BEDA8 /* StartScene.m */,
 			);
 			path = SKTest;
 			sourceTree = "<group>";
@@ -240,8 +270,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F233E13A182FDDDD00F32842 /* Hit.wav in Resources */,
 				F2E4EFFA18092420009C20A6 /* InfoPlist.strings in Resources */,
 				F2E4F00D18092420009C20A6 /* Images.xcassets in Resources */,
+				F2D0647018296131002823E0 /* ShipBullet.wav in Resources */,
 				F2E4F00B18092420009C20A6 /* Spaceship.png in Resources */,
 				F2E4F00318092420009C20A6 /* Main.storyboard in Resources */,
 			);
@@ -262,9 +294,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2FD8D26180C1AA30073E59A /* SpaceShip.m in Sources */,
 				F2E4F00918092420009C20A6 /* MyScene.m in Sources */,
 				F2E4F00618092420009C20A6 /* ViewController.m in Sources */,
+				F27733DC1833AC7C009BEDA8 /* StartScene.m in Sources */,
 				F2E4F00018092420009C20A6 /* AppDelegate.m in Sources */,
+				F27733D6183294D1009BEDA8 /* GameOverScene.m in Sources */,
+				F27733D91832954B009BEDA8 /* Ship.m in Sources */,
 				F2E4EFFC18092420009C20A6 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SKTest/SKTest-Prefix.pch";
 				INFOPLIST_FILE = "SKTest/SKTest-Info.plist";
@@ -408,6 +445,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SKTest/SKTest-Prefix.pch";
 				INFOPLIST_FILE = "SKTest/SKTest-Info.plist";
@@ -478,6 +516,7 @@
 				F2E4F02518092420009C20A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F2E4F02618092420009C20A6 /* Build configuration list for PBXNativeTarget "SKTestTests" */ = {
 			isa = XCConfigurationList;
@@ -486,6 +525,7 @@
 				F2E4F02818092420009C20A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
