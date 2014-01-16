@@ -10,11 +10,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import "SpaceShip.h"
 #pragma mark – Custom Type Definitions
-typedef enum InvaderType {
-    InvaderTypeA,
-    InvaderTypeB,
-    InvaderTypeC
-} InvaderType;
+
 typedef enum InvaderMovementDirection{
     InvaderMovementDirectionRight,
     InvaderMovementDirectionLeft,
@@ -22,15 +18,19 @@ typedef enum InvaderMovementDirection{
     InvaderMovementDirectionDownThenLeft,
     InvaderMovementDirectionNone
 }InvaderMovementDirection;
-
+typedef enum {
+    kEndReasonWin,
+    kEndReasonLose
+} EndReason;
 @interface MyScene : SKScene <SKPhysicsContactDelegate>
 @property (nonatomic, strong) SpaceShip *mySpaceShip;
 @property BOOL contentCreated;
 @property InvaderMovementDirection invaderMovementDirection;
 @property NSTimeInterval timeOfLastMove;
 @property NSTimeInterval timePerMove;
-@property (strong) NSMutableArray* tapQueue;
+@property (strong) NSMutableArray* invaderQueue;
 @property (strong) NSMutableArray* contactQueue;
 @property NSInteger score;
 @property CGFloat health;
+@property BOOL gameOver;
 @end

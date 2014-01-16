@@ -7,7 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-
+#define kShipFiredBulletName @"shipFiredBullet" 
+#define kInvaderFiredBulletName @"invaderFiredBullet"
+#define kBulletSize CGSizeMake(4, 8)
 typedef enum BulletType {
     ShipFiredBulletType,
     InvaderFiredBulletType
@@ -19,5 +21,6 @@ static const u_int32_t kShipCategory               = 0x1 << 2;
 static const u_int32_t kSceneEdgeCategory          = 0x1 << 3;
 static const u_int32_t kInvaderFiredBulletCategory = 0x1 << 4;
 @interface Ship : SKSpriteNode
-
+-(void)releaseBullet:(SKNode*)bullet toDestination:(CGPoint)destination withDuration:(double)duration withFrequency:(float)frequency;
+-(SKNode*)makeBulletOfType:(BulletType)bulletType;
 @end

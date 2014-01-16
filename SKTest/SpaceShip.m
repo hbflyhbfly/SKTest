@@ -15,58 +15,35 @@
         [self setPosition:location];
         [self setTouched:NO];
         [self setAngle:M_PI/2];
-        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
-        self.physicsBody.dynamic = YES;
-        self.physicsBody.affectedByGravity = NO;
-        self.physicsBody.mass = 2.0;
+        [self setName:kShipName];
+
         SKShapeNode *light1 = [self newLight];
         light1.position = CGPointMake(-40.0, -20.0);
         [self addChild:light1];
         SKShapeNode *light2 = [self newLight];
         light2.position = CGPointMake(40.0, -20.0);
         [self addChild:light2];
+        
+        NSString *smokePath = [[NSBundle mainBundle] pathForResource:@"Fire" ofType:@"sks"];
+        _smokeTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:smokePath];
+        _smokeTrail.position = CGPointMake(0, -self.size.width/2);
+        [self addChild:_smokeTrail];
         SKAction *shake = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-1.0f) duration:0.1],
                                                [SKAction rotateByAngle:0.0 duration:0.1],
                                                [SKAction rotateByAngle:degToRad(1.0f) duration:0.1]]];
         SKAction *shakeForever = [SKAction repeatActionForever:shake];
         [self runAction:shakeForever];
+        
+        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+        self.physicsBody.dynamic = YES;
+        self.physicsBody.categoryBitMask = kShipCategory;
+        self.physicsBody.contactTestBitMask = 0x0;
+        self.physicsBody.collisionBitMask = 0x0;
     }
     return self;
 }
 
-#pragma mark – Bullet Helpers
--(void)releaseBullet:(SKNode*)bullet toDestination:(CGPoint)destination withDuration:(NSTimeInterval)duration soundFileName:(NSString*)soundFileName{
-    SKAction* bulletAction = [SKAction sequence:@[[SKAction moveTo:destination duration:duration],
-                                                  [SKAction waitForDuration:3.0/60.0],
-                                                  [SKAction removeFromParent]]];
-    SKAction* soundAction  = [SKAction playSoundFileNamed:soundFileName waitForCompletion:YES];
-    [bullet runAction:[SKAction group:@[bulletAction, soundAction]]];
-    [self.parent addChild:bullet];
-    
-}
 
--(SKNode*)makeBulletOfType:(BulletType)bulletType {
-    SKNode *bullet;
-    switch (bulletType) {
-        case ShipFiredBulletType:
-            bullet = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:kBulletSize];
-            bullet.name = kShipFiredBulletName;
-            bullet.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:bullet.frame.size];
-            bullet.physicsBody.dynamic = YES;
-            bullet.physicsBody.affectedByGravity = NO;
-            bullet.physicsBody.categoryBitMask = kShipFiredBulletCategory;
-            bullet.physicsBody.contactTestBitMask = kInvaderCategory;
-            bullet.physicsBody.collisionBitMask = 0x0;
-            break;
-        case InvaderFiredBulletType:
-            bullet = [SKSpriteNode spriteNodeWithColor:[SKColor purpleColor] size:kBulletSize];
-            bullet.name = kInvaderFiredBulletName;
-            break;
-        default:
-            break;
-    }
-    return bullet;
-}
 
 -(SKShapeNode*)newLight{
     SKShapeNode *ball = [[SKShapeNode alloc] init];

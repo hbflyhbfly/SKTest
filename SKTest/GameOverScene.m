@@ -10,4 +10,13 @@
 
 @implementation GameOverScene
 
+-(void)didMoveToView:(SKView *)view{
+    NSString *localHTMLPageName = @"GameOver";
+
+    NSString *localHTMLPageFilePath = [[NSBundle mainBundle] pathForResource:localHTMLPageName ofType:@"html"];
+
+    NSURL *localHTMLPageFileURL = [NSURL fileURLWithPath:localHTMLPageFilePath];
+  
+    [_webView loadRequest:[NSURLRequest requestWithURL:localHTMLPageFileURL]];
+}
 @end

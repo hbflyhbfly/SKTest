@@ -7,7 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-
+#define START @"start"
+#define ABOUT @"about"
 @interface StartScene : SKScene
-
+@property BOOL contentCreated;
+@property UIWebView* webView;
 @end

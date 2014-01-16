@@ -8,12 +8,11 @@
 
 #import "MyScene.h"
 #import "SpaceShip.h"
+#import "Invader.h"
+#import "GameOverScene.h"
 
-#define kInvaderSize CGSizeMake(24, 16)
-#define kInvaderName @"invader"
 #define kScoreName @"score"
 #define kHealthHudName @"health"
-#define kShipName @"spaceShip"
 #define kInvaderGridSpacing CGSizeMake(12, 12)
 #define kInvaderRowCount 6
 #define kInvaderColCount 6
@@ -22,7 +21,7 @@
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+        self.backgroundColor = [SKColor blackColor];
     }
     return self;
 }
@@ -30,31 +29,21 @@
 -(void)didMoveToView:(SKView *)view{
     if(!self.contentCreated){
         [self creatContent];
-        //self.motionManager = [[CMMotionManager alloc]init];
-        //[self.motionManager startAccelerometerUpdates];
-        self.tapQueue = [NSMutableArray array];
         self.userInteractionEnabled = YES;
         self.contentCreated = YES;
-        self.contactQueue = [NSMutableArray array];
         self.physicsWorld.contactDelegate = self;
-        self.score = 0;
-        self.health = 1.0;
+        self.physicsBody.categoryBitMask = kSceneEdgeCategory;
     }
 }
 
 -(void)creatContent{
-    
-    //SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-    CGPoint location = CGPointMake(self.frame.size.width/2, 100);
-    //sprite.position = loaction;
-    SpaceShip *spaceShip = [[SpaceShip alloc]initWith:location];
-    [spaceShip setName:kShipName];
-    spaceShip.physicsBody.categoryBitMask = kShipCategory;
-    spaceShip.physicsBody.contactTestBitMask = 0x0;
-    spaceShip.physicsBody.collisionBitMask = kSceneEdgeCategory;
+    self.score = 0;
+    self.health = 1.0;
+    self.gameOver = NO;
+    self.contactQueue = [NSMutableArray array];
+    self.invaderQueue = [NSMutableArray array];
+    SpaceShip *spaceShip = [[SpaceShip alloc]initWith:CGPointMake(self.frame.size.width/2, 100)];
     _mySpaceShip = spaceShip;
-    self.physicsBody.categoryBitMask = kSceneEdgeCategory;
-    //self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     [self addChild:_mySpaceShip];
     [self setupInvaders];
     [self setupHud];
@@ -74,7 +63,21 @@
 //        SKAction *action = [SKAction rotateByAngle:mySpaceShip.angle-angle duration:0.1];
 //        [mySpaceShip runAction:[SKAction repeatAction:action count:1]];
 //        [mySpaceShip setAngle:angle];
+    for (UITouch *touch in touches) {
+        SKNode *n = [self nodeAtPoint:[touch locationInNode:self]];
+        if (n != self && [n.name isEqual: @"restartLabel"]) {
+            [[self childNodeWithName:@"restartLabel"] removeFromParent];
+            [[self childNodeWithName:@"winLoseLabel"] removeFromParent];
+            [self creatContent];
+            return;
+        }
     }
+    
+    //do not process anymore touches since it's game over
+    if (_gameOver) {
+        return;
+    }
+}
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     _mySpaceShip.touched = NO;
 }
@@ -93,43 +96,19 @@
     CGPoint positionInScene = [touch locationInNode:self];
     CGPoint previousPosition = [touch previousLocationInNode:self];
     CGPoint translation = CGPointMake(positionInScene.x - previousPosition.x, positionInScene.y - previousPosition.y);
-    
     [self panForTranslation:translation];
 }
+
 
 -(void)update:(NSTimeInterval)currentTime {
     /* Called before each frame is rendered */
     [self moveInvaderForUpdate:currentTime];
+    [self fireShipBullets:InvaderFiredBulletType];
     if (_mySpaceShip.touched == YES) {
-        [self fireShipBullets];
+        [self fireShipBullets:ShipFiredBulletType];
     }
     
     [self processContactsForUpdate:currentTime];
-}
-
--(SKSpriteNode*)makeInvaderOfType:(InvaderType)invaderType{
-    SKColor* invaderColor;
-    switch (invaderType) {
-        case InvaderTypeA:
-            invaderColor = [SKColor redColor];
-            break;
-        case InvaderTypeB:
-            invaderColor = [SKColor greenColor];
-            break;
-        case InvaderTypeC:
-        default:
-            invaderColor = [SKColor blueColor];
-            break;
-    }
-
-    SKSpriteNode* invader = [SKSpriteNode spriteNodeWithColor:invaderColor size:kInvaderSize];
-    invader.name = kInvaderName;
-    invader.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:invader.frame.size];
-    invader.physicsBody.dynamic = NO;
-    invader.physicsBody.categoryBitMask = kInvaderCategory;
-    invader.physicsBody.contactTestBitMask = 0x0;
-    invader.physicsBody.collisionBitMask = 0x0;
-    return invader;
 }
 
 -(void)setupInvaders {
@@ -144,14 +123,11 @@
 
         CGPoint invaderPosition = CGPointMake(baseOrigin.x, row * (kInvaderGridSpacing.height + kInvaderSize.height) + baseOrigin.y);
         
-        //4
         for (NSUInteger col = 0; col < kInvaderColCount; ++col) {
-            //5
-            SKNode* invader = [self makeInvaderOfType:invaderType];
-            invader.position = invaderPosition;
-            [self addChild:invader]; 
-            //6 
-            invaderPosition.x += kInvaderSize.width + kInvaderGridSpacing.width; 
+            Invader *invader = [[Invader alloc]initWithLocation:invaderPosition withType:invaderType];
+            [_invaderQueue addObject:invader];
+            [self addChild:invader];
+            invaderPosition.x += kInvaderSize.width + kInvaderGridSpacing.width;
         } 
     } 
 }
@@ -161,7 +137,7 @@
     SKLabelNode* scoreLable = [SKLabelNode labelNodeWithFontNamed:@"Courier"];
     scoreLable.name = kScoreName;
     scoreLable.fontSize =15;
-    scoreLable.fontColor = [SKColor whiteColor];
+    scoreLable.fontColor = [SKColor blackColor];
     scoreLable.text = [NSString stringWithFormat:@"Score: %ld",self.score];
     scoreLable.position = CGPointMake(scoreLable.frame.size.width/2+20, self.size.height-(scoreLable.frame.size.height/2+35));
     [self addChild:scoreLable];
@@ -169,7 +145,7 @@
     SKLabelNode* healthLable = [SKLabelNode labelNodeWithFontNamed:@"Courier"];
     healthLable.name = kHealthHudName;
     healthLable.fontSize = 15;
-    healthLable.fontColor = [SKColor greenColor];
+    healthLable.fontColor = [SKColor blackColor];
     healthLable.text = [NSString stringWithFormat:@"Health: %.1f",self.health*100.0f];
     healthLable.position = CGPointMake(self.frame.size.width - (scoreLable.frame.size.width/2+35), self.size.height-(scoreLable.frame.size.height/2+35));
     [self addChild:healthLable];
@@ -234,17 +210,39 @@
         self.invaderMovementDirection = proposedMovementDirection;
     }
 }
-#pragma mark - Ship Fire Helpers
--(void)fireShipBullets {
-    SKNode* existingBullet = [self childNodeWithName:kShipFiredBulletName];
-    if (!existingBullet) {
-        SpaceShip* ship = (SpaceShip*)[self childNodeWithName:kShipName];
-        SKNode* bullet = [ship makeBulletOfType:ShipFiredBulletType];
-        bullet.position = CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height - bullet.frame.size.height / 2);
-        CGPoint bulletDestination = CGPointMake(ship.position.x, self.frame.size.height + bullet.frame.size.height / 2);
-        [ship releaseBullet:bullet toDestination:bulletDestination withDuration:1.0 soundFileName:@"ShipBullet.wav"];
-    } 
-}
+#pragma mark - Fire Helpers
+-(void)fireShipBullets:(BulletType)bulletType {
+    SKNode* existingInvaderBullet = [self childNodeWithName:kInvaderFiredBulletName];
+    SpaceShip *ship = (SpaceShip*)[self childNodeWithName:kShipName];
+    SKNode* shipFiredbullet = [ship makeBulletOfType:bulletType];
+    switch (bulletType) {
+        case InvaderFiredBulletType:
+
+            if (!existingInvaderBullet) {
+                NSMutableArray* allInvaders = [NSMutableArray array];
+                [self enumerateChildNodesWithName:kInvaderName usingBlock:^(SKNode *node, BOOL *stop) {
+                    [allInvaders addObject:node];
+                }];
+                if ([allInvaders count] > 0) {
+                    NSUInteger InvadersIndex = arc4random_uniform((int)[allInvaders count]);
+                    Invader* invader = (Invader*)[allInvaders objectAtIndex:InvadersIndex];
+                    SKNode* invaderFiredbullet = [invader makeBulletOfType:bulletType];
+                    invaderFiredbullet.position = CGPointMake(invader.position.x, invader.position.y - invader.frame.size.height - invaderFiredbullet.frame.size.height / 2);
+                    CGPoint bulletDestination = CGPointMake(invader.position.x, -invaderFiredbullet.frame.size.height/2);
+                    [invader releaseBullet:invaderFiredbullet toDestination:bulletDestination withDuration:2 withFrequency:1];
+                }
+                
+            }
+            break;
+        case ShipFiredBulletType:
+            shipFiredbullet.position = CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height - shipFiredbullet.frame.size.height / 2);
+            CGPoint bulletDestination = CGPointMake(ship.position.x, self.frame.size.height + shipFiredbullet.frame.size.height / 2);
+            [ship releaseBullet:shipFiredbullet toDestination:bulletDestination withDuration:2 withFrequency:1];
+            break;
+            default:
+            break;
+    }
+    }
 #pragma mark – Physics Contact Helpers
 -(void)didBeginContact:(SKPhysicsContact *)contact{
     [self.contactQueue addObject:contact];
@@ -255,7 +253,6 @@
     
     NSArray* nodeNames = @[contact.bodyA.node.name, contact.bodyB.node.name];
     if ([nodeNames containsObject:kShipName] && [nodeNames containsObject:kInvaderFiredBulletName]) {
-        //2
         // Invader bullet hit a ship
         [self runAction:[SKAction playSoundFileNamed:@"Hit.wav" waitForCompletion:NO]];
         if (self.health <= 0) {
@@ -269,17 +266,17 @@
                 [contact.bodyA.node removeFromParent];
             }
         }
-        
         [self updateHealthWith:-0.334f];
-        
     } else if ([nodeNames containsObject:kInvaderName] && [nodeNames containsObject:kShipFiredBulletName]) {
-        //3
         // Ship bullet hit an invader
         [self runAction:[SKAction playSoundFileNamed:@"Hit.wav" waitForCompletion:NO]];
         [contact.bodyA.node removeFromParent]; 
         [contact.bodyB.node removeFromParent];
         [self updateScoreWith:100];
-        
+        if (![self childNodeWithName:kInvaderName]) {
+            //win
+            [self endTheScene:kEndReasonWin];
+        }
     } 
 }
 -(void)processContactsForUpdate:(NSTimeInterval)currentTime {
@@ -300,8 +297,52 @@
     self.health = MAX(self.health+adjustment, 0);
     SKLabelNode* health = (SKLabelNode*)[self childNodeWithName:kHealthHudName];
     health.text = [NSString stringWithFormat:@"Health: %.1f",self.health*100.0f];
+    if (self.health<=0) {
+        [self endTheScene:kEndReasonLose];
+    }
+    
 }
 
+- (void)endTheScene:(EndReason)endReason {
+    if (_gameOver) {
+        return;
+    }
+    
+    [self removeAllActions];
+    [self removeAllChildren];
+    _gameOver = YES;
+    
+    NSString *message;
+    if (endReason == kEndReasonWin) {
+        message = @"You win!";
+    } else if (endReason == kEndReasonLose) {
+        message = @"You lost!";
+    }
+    
+    SKLabelNode *label;
+    label = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    label.name = @"winLoseLabel";
+    label.text = message;
+    label.scale = 0.1;
+    label.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.6);
+    label.fontColor = [SKColor yellowColor];
+    [self addChild:label];
+    
+    SKLabelNode *restartLabel;
+    restartLabel = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    restartLabel.name = @"restartLabel";
+    restartLabel.text = @"Play Again?";
+    restartLabel.scale = 0.5;
+    restartLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.4);
+    restartLabel.fontColor = [SKColor yellowColor];
+    [self addChild:restartLabel];
+    
+    SKAction *labelScaleAction = [SKAction scaleTo:1.0 duration:0.5];
+    
+    [restartLabel runAction:labelScaleAction];
+    [label runAction:labelScaleAction];
+    
+}
 @end
 
 

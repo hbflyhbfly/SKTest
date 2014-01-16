@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		F233E13A182FDDDD00F32842 /* Hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = F233E139182FDDDD00F32842 /* Hit.wav */; };
+		F24274DB186EEF340002D05D /* Invader.m in Sources */ = {isa = PBXBuildFile; fileRef = F24274DA186EEF340002D05D /* Invader.m */; };
+		F245113218799C6100D3D32B /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F245113018799C6100D3D32B /* Fire.sks */; };
+		F245113318799C6100D3D32B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = F245113118799C6100D3D32B /* spark.png */; };
+		F25699E7186C75600082705F /* GameOver.html in Resources */ = {isa = PBXBuildFile; fileRef = F25699E6186C75600082705F /* GameOver.html */; };
 		F27733D6183294D1009BEDA8 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F27733D5183294D1009BEDA8 /* GameOverScene.m */; };
 		F27733D91832954B009BEDA8 /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = F27733D81832954B009BEDA8 /* Ship.m */; };
 		F27733DC1833AC7C009BEDA8 /* StartScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F27733DB1833AC7C009BEDA8 /* StartScene.m */; };
@@ -45,6 +49,11 @@
 
 /* Begin PBXFileReference section */
 		F233E139182FDDDD00F32842 /* Hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Hit.wav; sourceTree = "<group>"; };
+		F24274D9186EEF340002D05D /* Invader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invader.h; sourceTree = "<group>"; };
+		F24274DA186EEF340002D05D /* Invader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invader.m; sourceTree = "<group>"; };
+		F245113018799C6100D3D32B /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
+		F245113118799C6100D3D32B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		F25699E6186C75600082705F /* GameOver.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = GameOver.html; sourceTree = "<group>"; };
 		F27733D4183294D1009BEDA8 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		F27733D5183294D1009BEDA8 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		F27733D71832954B009BEDA8 /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
@@ -141,8 +150,10 @@
 		F2E4EFF518092420009C20A6 /* SKTest */ = {
 			isa = PBXGroup;
 			children = (
+				F25699E6186C75600082705F /* GameOver.html */,
 				F233E139182FDDDD00F32842 /* Hit.wav */,
 				F2D0646F18296131002823E0 /* ShipBullet.wav */,
+				F2E4F00A18092420009C20A6 /* Spaceship.png */,
 				F2E4EFFE18092420009C20A6 /* AppDelegate.h */,
 				F2E4EFFF18092420009C20A6 /* AppDelegate.m */,
 				F2E4F00118092420009C20A6 /* Main.storyboard */,
@@ -150,17 +161,20 @@
 				F2E4F00518092420009C20A6 /* ViewController.m */,
 				F2E4F00718092420009C20A6 /* MyScene.h */,
 				F2E4F00818092420009C20A6 /* MyScene.m */,
-				F2E4F00A18092420009C20A6 /* Spaceship.png */,
+				F27733DA1833AC7C009BEDA8 /* StartScene.h */,
+				F27733DB1833AC7C009BEDA8 /* StartScene.m */,
 				F2E4F00C18092420009C20A6 /* Images.xcassets */,
 				F2E4EFF618092420009C20A6 /* Supporting Files */,
 				F2FD8D24180C1AA30073E59A /* SpaceShip.h */,
 				F2FD8D25180C1AA30073E59A /* SpaceShip.m */,
-				F27733D4183294D1009BEDA8 /* GameOverScene.h */,
-				F27733D5183294D1009BEDA8 /* GameOverScene.m */,
+				F24274D9186EEF340002D05D /* Invader.h */,
+				F24274DA186EEF340002D05D /* Invader.m */,
 				F27733D71832954B009BEDA8 /* Ship.h */,
 				F27733D81832954B009BEDA8 /* Ship.m */,
-				F27733DA1833AC7C009BEDA8 /* StartScene.h */,
-				F27733DB1833AC7C009BEDA8 /* StartScene.m */,
+				F27733D4183294D1009BEDA8 /* GameOverScene.h */,
+				F27733D5183294D1009BEDA8 /* GameOverScene.m */,
+				F245113018799C6100D3D32B /* Fire.sks */,
+				F245113118799C6100D3D32B /* spark.png */,
 			);
 			path = SKTest;
 			sourceTree = "<group>";
@@ -271,11 +285,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F233E13A182FDDDD00F32842 /* Hit.wav in Resources */,
+				F245113318799C6100D3D32B /* spark.png in Resources */,
 				F2E4EFFA18092420009C20A6 /* InfoPlist.strings in Resources */,
 				F2E4F00D18092420009C20A6 /* Images.xcassets in Resources */,
 				F2D0647018296131002823E0 /* ShipBullet.wav in Resources */,
 				F2E4F00B18092420009C20A6 /* Spaceship.png in Resources */,
+				F245113218799C6100D3D32B /* Fire.sks in Resources */,
 				F2E4F00318092420009C20A6 /* Main.storyboard in Resources */,
+				F25699E7186C75600082705F /* GameOver.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +317,7 @@
 				F27733DC1833AC7C009BEDA8 /* StartScene.m in Sources */,
 				F2E4F00018092420009C20A6 /* AppDelegate.m in Sources */,
 				F27733D6183294D1009BEDA8 /* GameOverScene.m in Sources */,
+				F24274DB186EEF340002D05D /* Invader.m in Sources */,
 				F27733D91832954B009BEDA8 /* Ship.m in Sources */,
 				F2E4EFFC18092420009C20A6 /* main.m in Sources */,
 			);
