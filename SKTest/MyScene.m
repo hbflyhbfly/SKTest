@@ -103,9 +103,9 @@
 -(void)update:(NSTimeInterval)currentTime {
     /* Called before each frame is rendered */
     [self moveInvaderForUpdate:currentTime];
-    [self fireShipBullets:InvaderFiredBulletType];
+    [self fireInvaderBullets];
     if (_mySpaceShip.touched == YES) {
-        [self fireShipBullets:ShipFiredBulletType];
+        [self fireShipBullets];
     }
     
     [self processContactsForUpdate:currentTime];
@@ -211,38 +211,35 @@
     }
 }
 #pragma mark - Fire Helpers
--(void)fireShipBullets:(BulletType)bulletType {
-    SKNode* existingInvaderBullet = [self childNodeWithName:kInvaderFiredBulletName];
+-(void)fireShipBullets {
+    SKNode* existingInvaderBullet = [self childNodeWithName:kShipFiredBulletName];
     SpaceShip *ship = (SpaceShip*)[self childNodeWithName:kShipName];
-    SKNode* shipFiredbullet = [ship makeBulletOfType:bulletType];
-    switch (bulletType) {
-        case InvaderFiredBulletType:
-
-            if (!existingInvaderBullet) {
-                NSMutableArray* allInvaders = [NSMutableArray array];
-                [self enumerateChildNodesWithName:kInvaderName usingBlock:^(SKNode *node, BOOL *stop) {
-                    [allInvaders addObject:node];
-                }];
-                if ([allInvaders count] > 0) {
-                    NSUInteger InvadersIndex = arc4random_uniform((int)[allInvaders count]);
-                    Invader* invader = (Invader*)[allInvaders objectAtIndex:InvadersIndex];
-                    SKNode* invaderFiredbullet = [invader makeBulletOfType:bulletType];
-                    invaderFiredbullet.position = CGPointMake(invader.position.x, invader.position.y - invader.frame.size.height - invaderFiredbullet.frame.size.height / 2);
-                    CGPoint bulletDestination = CGPointMake(invader.position.x, -invaderFiredbullet.frame.size.height/2);
-                    [invader releaseBullet:invaderFiredbullet toDestination:bulletDestination withDuration:2 withFrequency:1];
-                }
-                
-            }
-            break;
-        case ShipFiredBulletType:
-            shipFiredbullet.position = CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height - shipFiredbullet.frame.size.height / 2);
-            CGPoint bulletDestination = CGPointMake(ship.position.x, self.frame.size.height + shipFiredbullet.frame.size.height / 2);
-            [ship releaseBullet:shipFiredbullet toDestination:bulletDestination withDuration:2 withFrequency:1];
-            break;
-            default:
-            break;
+    if (!existingInvaderBullet) {
+        SKNode* shipFiredbullet = [ship makeBulletOfType:ShipFiredBulletType];
+        shipFiredbullet.position = CGPointMake(ship.position.x, ship.position.y + ship.frame.size.height);
+        CGPoint bulletDestination = CGPointMake(ship.position.x, self.frame.size.height);
+        [ship releaseBullet:shipFiredbullet toDestination:bulletDestination withDuration:1 withFrequency:1];
+        
     }
+}
+-(void)fireInvaderBullets {
+    SKNode* existingInvaderBullet = [self childNodeWithName:kInvaderFiredBulletName];
+    if (!existingInvaderBullet) {
+        NSMutableArray* allInvaders = [NSMutableArray array];
+        [self enumerateChildNodesWithName:kInvaderName usingBlock:^(SKNode *node, BOOL *stop) {
+            [allInvaders addObject:node];
+        }];
+        if ([allInvaders count] > 0) {
+            NSUInteger InvadersIndex = arc4random_uniform((int)[allInvaders count]);
+            Invader* invader = (Invader*)[allInvaders objectAtIndex:InvadersIndex];
+            SKNode* invaderFiredbullet = [invader makeBulletOfType:InvaderFiredBulletType];
+            invaderFiredbullet.position = CGPointMake(invader.position.x, invader.position.y - invader.frame.size.height - invaderFiredbullet.frame.size.height / 2);
+            CGPoint bulletDestination = CGPointMake(invader.position.x, -invaderFiredbullet.frame.size.height/2);
+            [invader releaseBullet:invaderFiredbullet toDestination:bulletDestination withDuration:2 withFrequency:1];
+        }
+        
     }
+}
 #pragma mark – Physics Contact Helpers
 -(void)didBeginContact:(SKPhysicsContact *)contact{
     [self.contactQueue addObject:contact];

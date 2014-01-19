@@ -32,11 +32,10 @@
         self.color = invaderColor;
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.frame.size];
         self.physicsBody.dynamic = YES;
+        self.physicsBody.affectedByGravity = NO;
         self.physicsBody.categoryBitMask = kInvaderCategory;
-        self.physicsBody.contactTestBitMask = 0x0;
+        self.physicsBody.contactTestBitMask = kShipFiredBulletCategory;
         self.physicsBody.collisionBitMask = 0x0;
-        
-        
     }
     return  self;
 }

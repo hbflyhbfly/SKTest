@@ -8,6 +8,8 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "Ship.h"
+#define kShipSize CGSizeMake(70, 70)
+
 #define kShipName @"spaceShip"
 @interface SpaceShip : Ship
 @property (nonatomic,assign) CGFloat angle;

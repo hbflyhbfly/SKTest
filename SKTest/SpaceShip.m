@@ -34,10 +34,11 @@
         SKAction *shakeForever = [SKAction repeatActionForever:shake];
         [self runAction:shakeForever];
         
-        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.frame.size];
         self.physicsBody.dynamic = YES;
+        self.physicsBody.affectedByGravity = NO;
         self.physicsBody.categoryBitMask = kShipCategory;
-        self.physicsBody.contactTestBitMask = 0x0;
+        self.physicsBody.contactTestBitMask = kInvaderFiredBulletCategory;
         self.physicsBody.collisionBitMask = 0x0;
     }
     return self;
