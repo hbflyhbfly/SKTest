@@ -11,6 +11,8 @@
 		F24274DB186EEF340002D05D /* Invader.m in Sources */ = {isa = PBXBuildFile; fileRef = F24274DA186EEF340002D05D /* Invader.m */; };
 		F245113218799C6100D3D32B /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F245113018799C6100D3D32B /* Fire.sks */; };
 		F245113318799C6100D3D32B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = F245113118799C6100D3D32B /* spark.png */; };
+		F2451138188C06CA00D3D32B /* SKLabelNode+CustomizeLable.m in Sources */ = {isa = PBXBuildFile; fileRef = F2451137188C06CA00D3D32B /* SKLabelNode+CustomizeLable.m */; };
+		F24511451890154E00D3D32B /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = F24511441890154E00D3D32B /* title.png */; };
 		F25699E7186C75600082705F /* GameOver.html in Resources */ = {isa = PBXBuildFile; fileRef = F25699E6186C75600082705F /* GameOver.html */; };
 		F27733D6183294D1009BEDA8 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F27733D5183294D1009BEDA8 /* GameOverScene.m */; };
 		F27733D91832954B009BEDA8 /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = F27733D81832954B009BEDA8 /* Ship.m */; };
@@ -53,6 +55,9 @@
 		F24274DA186EEF340002D05D /* Invader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invader.m; sourceTree = "<group>"; };
 		F245113018799C6100D3D32B /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		F245113118799C6100D3D32B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		F2451136188C06CA00D3D32B /* SKLabelNode+CustomizeLable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKLabelNode+CustomizeLable.h"; sourceTree = "<group>"; };
+		F2451137188C06CA00D3D32B /* SKLabelNode+CustomizeLable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKLabelNode+CustomizeLable.m"; sourceTree = "<group>"; };
+		F24511441890154E00D3D32B /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		F25699E6186C75600082705F /* GameOver.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = GameOver.html; sourceTree = "<group>"; };
 		F27733D4183294D1009BEDA8 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		F27733D5183294D1009BEDA8 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
@@ -150,6 +155,7 @@
 		F2E4EFF518092420009C20A6 /* SKTest */ = {
 			isa = PBXGroup;
 			children = (
+				F24511441890154E00D3D32B /* title.png */,
 				F25699E6186C75600082705F /* GameOver.html */,
 				F233E139182FDDDD00F32842 /* Hit.wav */,
 				F2D0646F18296131002823E0 /* ShipBullet.wav */,
@@ -175,6 +181,8 @@
 				F27733D5183294D1009BEDA8 /* GameOverScene.m */,
 				F245113018799C6100D3D32B /* Fire.sks */,
 				F245113118799C6100D3D32B /* spark.png */,
+				F2451136188C06CA00D3D32B /* SKLabelNode+CustomizeLable.h */,
+				F2451137188C06CA00D3D32B /* SKLabelNode+CustomizeLable.m */,
 			);
 			path = SKTest;
 			sourceTree = "<group>";
@@ -288,6 +296,7 @@
 				F245113318799C6100D3D32B /* spark.png in Resources */,
 				F2E4EFFA18092420009C20A6 /* InfoPlist.strings in Resources */,
 				F2E4F00D18092420009C20A6 /* Images.xcassets in Resources */,
+				F24511451890154E00D3D32B /* title.png in Resources */,
 				F2D0647018296131002823E0 /* ShipBullet.wav in Resources */,
 				F2E4F00B18092420009C20A6 /* Spaceship.png in Resources */,
 				F245113218799C6100D3D32B /* Fire.sks in Resources */,
@@ -314,6 +323,7 @@
 				F2FD8D26180C1AA30073E59A /* SpaceShip.m in Sources */,
 				F2E4F00918092420009C20A6 /* MyScene.m in Sources */,
 				F2E4F00618092420009C20A6 /* ViewController.m in Sources */,
+				F2451138188C06CA00D3D32B /* SKLabelNode+CustomizeLable.m in Sources */,
 				F27733DC1833AC7C009BEDA8 /* StartScene.m in Sources */,
 				F2E4F00018092420009C20A6 /* AppDelegate.m in Sources */,
 				F27733D6183294D1009BEDA8 /* GameOverScene.m in Sources */,

@@ -7,8 +7,11 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <GameKit/GameKit.h>
+#import "SKLabelNode+CustomizeLable.h"
 #define START @"start"
 #define ABOUT @"about"
+#define SCORE @"score"
 @interface StartScene : SKScene
 @property BOOL contentCreated;
 @property UIWebView* webView;

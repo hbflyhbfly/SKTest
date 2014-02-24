@@ -28,7 +28,7 @@
             bullet = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:kBulletSize];
             bullet.name = kShipFiredBulletName;
             bullet.physicsBody.categoryBitMask = kShipFiredBulletCategory;
-            bullet.physicsBody.contactTestBitMask = kInvaderCategory;
+            //bullet.physicsBody.contactTestBitMask = kInvaderCategory;
             
 
             break;
@@ -36,7 +36,7 @@
             bullet = [SKSpriteNode spriteNodeWithColor:[SKColor purpleColor] size:kBulletSize];
             bullet.name = kInvaderFiredBulletName;
             bullet.physicsBody.categoryBitMask = kInvaderFiredBulletCategory;
-            bullet.physicsBody.contactTestBitMask = kShipCategory;
+            //bullet.physicsBody.contactTestBitMask = kShipCategory;
 
             break;
             default:

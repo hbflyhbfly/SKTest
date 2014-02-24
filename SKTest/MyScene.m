@@ -21,7 +21,7 @@
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
-        self.backgroundColor = [SKColor blackColor];
+        self.backgroundColor = [SKColor whiteColor];
     }
     return self;
 }
@@ -301,6 +301,12 @@
 }
 
 - (void)endTheScene:(EndReason)endReason {
+    
+    
+    NSMutableArray* data = [[NSMutableArray alloc]initWithObjects:@"111",@"222", nil];
+    
+    [self dataSaveWith:data withFileName:@"score"];
+    [self loadDataFrom:@"score"];
     if (_gameOver) {
         return;
     }
@@ -339,6 +345,26 @@
     [restartLabel runAction:labelScaleAction];
     [label runAction:labelScaleAction];
     
+}
+
+#pragma mark - DataContrller Helper
+-(BOOL)dataSaveWith:(NSMutableArray*)data withFileName:(NSString*)fileName{
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentDirectory = [paths objectAtIndex:0];
+    if (!documentDirectory) {
+        return NO;
+    }
+    NSString* appFile = [documentDirectory stringByAppendingPathComponent:fileName];
+    return [data writeToFile:appFile atomically:YES];
+}
+
+-(id)loadDataFrom:(NSString*)fileName{
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentDirectory = [paths objectAtIndex:0];
+    NSString* appFile = [documentDirectory stringByAppendingPathComponent:fileName];
+    NSMutableArray* data = [[NSMutableArray alloc]initWithContentsOfFile:appFile];
+    NSLog(@"%@", data);
+    return data;
 }
 @end
 
